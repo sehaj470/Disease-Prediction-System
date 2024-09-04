@@ -8,17 +8,38 @@ Created on Sat Feb 10 21:03:36 2024
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
-
+import os
 import numpy as np
 
 
 # loading the models
 
-heart_model = pickle.load(open('C:/Users/sehaj/OneDrive/Documents/EVERYTHING/projects/Sehaj & mandeep/models machine learning/heart_model.sav', 'rb'))
+base_dir = os.path.dirname(__file__)
+heart_model_path = os.path.join(base_dir, "models machine learning", "heart_model.sav")
+diabetes_model_path = os.path.join(base_dir, "models machine learning", "diabetes_model_2.sav")
+parkinsons_model_path = os.path.join(base_dir, "models machine learning", "parkinsons_model.sav")
 
-diabetes_model = pickle.load(open('C:/Users/sehaj/OneDrive/Documents/EVERYTHING/projects/Sehaj & mandeep/models machine learning/diabetes_model_2.sav', 'rb'))
 
-parkinsons_model = pickle.load(open('C:/Users/sehaj/OneDrive/Documents/EVERYTHING/projects/Sehaj & mandeep/models machine learning/parkinsons_model.sav', 'rb'))
+# heart_model = pickle.load(open(heart_model_path, 'rb'))
+
+# diabetes_model = pickle.load(open(diabetes_model_path, 'rb'))
+
+# parkinsons_model = pickle.load(open(parkinsons_model_path, 'rb'))
+
+
+
+try:
+    with open(heart_model_path, 'rb') as model_file:
+        heart_model = pickle.load(model_file)
+    with open(diabetes_model_path, 'rb') as diabetes_file:
+        diabetes_model = pickle.load(diabetes_file)
+    with open(parkinsons_model_path, 'rb') as parkinsons_file:
+        parkinsons_model = pickle.load(parkinsons_file)
+except FileNotFoundError as e:
+    st.error(f"Error loading files: {e}")
+    st.stop()
+
+
 
 
 
